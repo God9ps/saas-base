@@ -12,7 +12,7 @@ class ManageTenant{
     {
         DB::purge('tenant');
 
-        if(!$project->db_host === null){
+        if(!$project->db_host == null){
             config()->set('database.connections.tenant.host', $project->db_host);
             config()->set('database.connections.tenant.username', $project->db_user);
             config()->set('database.connections.tenant.password', $project->db_password);
@@ -23,6 +23,7 @@ class ManageTenant{
         DB::setDefaultConnection('tenant');
 
         Schema::connection('tenant')->getConnection()->reconnect();
+
     }
 
     public function isMasterDomain()

@@ -48,7 +48,11 @@ return [
         ],
 
         'admin' => [
-            'driver'   => 'session',
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'admin-api' => [
+            'driver' => 'token',
             'provider' => 'admins',
         ],
     ],

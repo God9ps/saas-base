@@ -8,7 +8,7 @@ Route::get('/pricing', 'Web\WebsiteController@pricing')->name('web.pricing');
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     Route::get('/', function () {
         return redirect('admin/projects');
-    })->name('home');
+    })->name('dashboard');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
     Route::resource('permissions', 'PermissionsController');

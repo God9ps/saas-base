@@ -1,16 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
+
 Route::get('/', function ($subdomain) {
-    return 'without admin'. $subdomain;
+    return 'default connection : '. DB::connection()->getDatabaseName();
+    ;
 });
 
-
-Route::group(['prefix' => 'admin'], function () {
-
-    Route::get('/', function ($subdomain) {
-        return 'with admin'. $subdomain;
-    });
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::get('/', 'Tenant\AdminController@index')->name('tenant.dashboard');
 });
 
-// todo: criar Tenant\Controllers, Models\Tenant, Admin Guard
+Route::get('/login', 'Tenant\Auth\AdminLoginController@showLoginForm')->name('tenant.login');
+Route::post('/login', 'Tenant\Auth\AdminLoginController@login')->name('tenant.login.submit');
+Route::get('/logout', 'Tenant\Auth\AdminLoginController@logout')->name('tenant.logout');
 

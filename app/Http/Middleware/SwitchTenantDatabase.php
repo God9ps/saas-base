@@ -18,9 +18,10 @@ class SwitchTenantDatabase
      */
     public function handle($request, Closure $next)
     {
+
+
         $manager = app(ManageTenant::class);
         $project = Project::where('subdomain', $request->subdomain)->first();
-
         if(!$project) {
             abort(404, __('auth.subdomain.404'));
         }elseif(!$manager->isMasterDomain()){
