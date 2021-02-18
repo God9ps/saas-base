@@ -3,7 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Models\Role;
+use App\Models\Tenant\Admin;
 use Closure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
@@ -15,10 +17,15 @@ class AuthGates
             return $next($request);
         }
 
-        if(!auth()->guard('admin')){
+        if(auth()->guard('admin')){
+            $admin = \App\Models\Tenant\Admin::where('id',auth()->id())->with('owner')->first();//dd($admin);
+            $user = $admin->owner;
+        }else{
             $user = auth()->user();
+        }
 
 // Check if subscription time is expired after cancellation
+        DB::setDefaultConnection('mysql');
             if (!$user->is_admin && $user->is_premium && !$user->subscribed('default')) {
                 $user->roles()->sync([2]);
                 $user->fresh();
@@ -49,6 +56,8 @@ class AuthGates
                     return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
                 });
             }
+        if(auth()->guard('admin')){
+            DB::setDefaultConnection('tenant');
         }
 
         return $next($request);

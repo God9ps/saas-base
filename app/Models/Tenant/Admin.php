@@ -2,12 +2,14 @@
 
 namespace App\Models\Tenant;
 
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
@@ -49,9 +51,9 @@ class Admin extends Authenticatable
         'phone_number',
     ];
 
-
     public function owner()
     {
-        return $this->hasMany(User::class, 'created_by');
+        return $this->setConnection('mysql')->belongsTo(User::class, 'created_by')->with('roles');
     }
+
 }
