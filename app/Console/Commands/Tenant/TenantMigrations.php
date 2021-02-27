@@ -7,6 +7,10 @@ use App\Tenant\ManageTenant;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * Class TenantMigrations
+ * @package App\Console\Commands\Tenant
+ */
 class TenantMigrations extends Command
 {
     /**
@@ -55,6 +59,9 @@ class TenantMigrations extends Command
         }
     }
 
+    /**
+     * @param Project $project
+     */
     public function execCommand(Project $project)
     {
         $command = $this->option('fresh') ? 'migrate:fresh' : 'migrate';
@@ -64,6 +71,9 @@ class TenantMigrations extends Command
         Artisan::call($command, [
             '--force' => true,
             '--path'  => '/database/migrations/tenant'
+        ]);
+        Artisan::call('db:seed', [
+            '--class' => 'AdminTableSeeder'
         ]);
         $this->info("End Connecting to {$project->name}");
         $this->info("__________________________________");

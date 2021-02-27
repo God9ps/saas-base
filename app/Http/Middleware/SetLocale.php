@@ -10,6 +10,12 @@ class SetLocale
     {
         if (request('change_language')) {
             session()->put('language', request('change_language'));
+            $array = array_filter(config('panel.available_languages'), function ($item){
+                if($item['locale'] === request('change_language')){
+                    session()->put('flag', $item['flag']);
+                }
+            });
+
             $language = request('change_language');
         } elseif (session('language')) {
             $language = session('language');

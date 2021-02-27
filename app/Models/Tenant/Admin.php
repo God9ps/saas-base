@@ -2,6 +2,7 @@
 
 namespace App\Models\Tenant;
 
+use App\Models\Country;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
@@ -12,10 +13,19 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Admin extends Authenticatable
+/**
+ * Class Admin
+ * @package App\Models\Tenant
+ */
+class Admin extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, HasApiTokens;
+    use HasApiTokens;
+    use Notifiable;
+    use SoftDeletes;
+    use InteractsWithMedia;
 
     protected $connection = 'tenant';
     public $table = 'admins';
@@ -47,13 +57,23 @@ class Admin extends Authenticatable
         'address_2',
         'country_id',
         'city',
+        'country_id',
         'postcode',
         'phone_number',
+        'is_admin',
     ];
+
+    public function isadmin() {
+        return $this->is_admin === 1;
+    }
 
     public function owner()
     {
         return $this->setConnection('mysql')->belongsTo(User::class, 'created_by')->with('roles');
     }
 
+    public function country()
+    {
+        return $this->setConnection('mysql')->belongsTo(Country::class, 'country_id');
+    }
 }

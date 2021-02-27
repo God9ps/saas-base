@@ -5,6 +5,15 @@ return [
     'time_format'         => 'H:i:s',
     'primary_language'    => 'en',
     'available_languages' => [
-        'en' => 'English',
+            [
+                'locale' => 'en',
+                'name' => 'English',
+                'flag' => 'flag-icon-us'
+            ],
+            [
+                'locale' => 'pt',
+                'name' => 'Portuguese',
+                'flag' => 'flag-icon-pt'
+            ],
     ],
 ];

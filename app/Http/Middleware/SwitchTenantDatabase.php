@@ -20,7 +20,6 @@ class SwitchTenantDatabase
     public function handle($request, Closure $next)
     {
 
-
         $manager = app(ManageTenant::class);
         $project = Project::where('subdomain', $request->subdomain)->first();
         if(!$project) {
@@ -29,7 +28,8 @@ class SwitchTenantDatabase
             $manager->setConnection($project);
         }
 
-        $admin = \App\Models\Tenant\Admin::where(auth()->id())->with('owner')->first();//dd($admin);
+        $admin = \App\Models\Tenant\Admin::where(auth()->id())->with('owner')->first();
+//        dd($admin);
         if(!$admin->owner->subscribed('default') && $admin->owner->roles[0]->title !== 'Free Plan'){
             abort(401, 'Your account is expired!');
         }

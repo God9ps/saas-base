@@ -23,13 +23,15 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->datetime('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('remember_token')->nullable();
             $table->string('vat_number')->nullable();
             $table->string('address_1')->nullable();
             $table->string('address_2')->nullable();
             $table->string('city')->nullable();
+            $table->unsignedBigInteger('country_id')->nullable();
+            $table->foreign('country_id')->references('id')->on($db.'.countries');
             $table->string('postcode')->nullable();
             $table->string('phone_number')->nullable();
+            $table->tinyInteger('is_admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

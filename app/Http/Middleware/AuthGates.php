@@ -9,22 +9,33 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
+/**
+ * Class AuthGates
+ * @package App\Http\Middleware
+ */
 class AuthGates
 {
+    /**
+     * @param $request
+     * @param Closure $next
+     * @return mixed
+     */
     public function handle($request, Closure $next)
     {
         if (auth()->guest()) {
             return $next($request);
         }
 
-        if(auth()->guard('admin')){
-            $admin = \App\Models\Tenant\Admin::where('id',auth()->id())->with('owner')->first();//dd($admin);
+      /*  if(isset($request->subdomain)){
+            DB::setDefaultConnection('tenant');
+            $admin = Admin::where('id',auth()->id())->with('owner')->first();//dd($admin);
             $user = $admin->owner;
-        }else{
+      
+        }else{*/
             $user = auth()->user();
-        }
+//        }
 
-// Check if subscription time is expired after cancellation
+        // Check if subscription time is expired after cancellation
         DB::setDefaultConnection('mysql');
             if (!$user->is_admin && $user->is_premium && !$user->subscribed('default')) {
                 $user->roles()->sync([2]);
@@ -56,9 +67,10 @@ class AuthGates
                     return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
                 });
             }
-        if(auth()->guard('admin')){
+
+        /*if(isset($request->subdomain)){
             DB::setDefaultConnection('tenant');
-        }
+        }*/
 
         return $next($request);
     }
