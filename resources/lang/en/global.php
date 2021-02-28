@@ -264,4 +264,10 @@ return [
     'no_alerts'                            => 'No alerts',
     'calendar'                             => 'Calendar',
     'messenger'                            => 'Messenger',
+    'toast_messages'                       => [
+        'success_title'                    => 'Great',
+        'admin_status_success'             => 'You had change the user permissions with success',
+        'error_title'                      => 'Oooopss',
+        'admin_status_error'               => 'Something went wrong',
+    ],
 ];

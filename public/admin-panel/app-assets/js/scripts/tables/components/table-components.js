@@ -167,28 +167,28 @@
   'use strict';
 
     // Basic Select2 select
-	$(".select2").select2({
-    dropdownAutoWidth: true,
-    width: '100%'
-  });
+	// $(".select2").select2({
+    // dropdownAutoWidth: true,
+    // width: '100%'
+  // });
 
     // Single Select Placeholder
-    $(".select2-placeholder").select2({
-      dropdownAutoWidth: true,
-      width: '100%',
-      placeholder: "Select a state",
-      allowClear: true
-    });
+    // $(".select2-placeholder").select2({
+    //   dropdownAutoWidth: true,
+    //   width: '100%',
+    //   placeholder: "Select a state",
+    //   allowClear: true
+    // });
 
     // Select With Icon
-    $(".select2-icons").select2({
-        dropdownAutoWidth: true,
-        width: '100%',
-        minimumResultsForSearch: Infinity,
-        templateResult: iconFormat,
-        templateSelection: iconFormat,
-        escapeMarkup: function(es) { return es; }
-    });
+    // $(".select2-icons").select2({
+    //     dropdownAutoWidth: true,
+    //     width: '100%',
+    //     minimumResultsForSearch: Infinity,
+    //     templateResult: iconFormat,
+    //     templateSelection: iconFormat,
+    //     escapeMarkup: function(es) { return es; }
+    // });
 
     // Format icon
     function iconFormat(icon) {
@@ -200,12 +200,12 @@
     }
 
     // Theme support
-    $(".select2-theme").select2({
-      dropdownAutoWidth: true,
-      width: '100%',
-      placeholder: "Classic Theme",
-      theme: "classic"
-    });
+    // $(".select2-theme").select2({
+    //   dropdownAutoWidth: true,
+    //   width: '100%',
+    //   placeholder: "Classic Theme",
+    //   theme: "classic"
+    // });
 
     // Templating
     function formatState (state) {
@@ -218,19 +218,19 @@
       }
     }
 
-    $(".select2-templating").select2({
-      dropdownAutoWidth: true,
-      width: '100%',
-      templateResult: formatState,
-      templateSelection: formatState
-    });
+    // $(".select2-templating").select2({
+    //   dropdownAutoWidth: true,
+    //   width: '100%',
+    //   templateResult: formatState,
+    //   templateSelection: formatState
+    // });
 
     // Mini
-    $('.select2-size-xs').select2({
-        dropdownAutoWidth: true,
-        width: '100%',
-        containerCssClass: 'select-xs'
-    });
+    // $('.select2-size-xs').select2({
+    //     dropdownAutoWidth: true,
+    //     width: '100%',
+    //     containerCssClass: 'select-xs'
+    // });
 
 
 
@@ -241,12 +241,12 @@
 	var $html = $('html');
 
 	// Default Spin
-	$(".touchspin").TouchSpin({
-            buttondown_class: "btn btn-primary",
-            buttonup_class: "btn btn-primary",
-            buttondown_txt: '<i class="feather icon-minus"></i>',
-            buttonup_txt: '<i class="feather icon-plus"></i>'
-        });
+	// $(".touchspin").TouchSpin({
+    //         buttondown_class: "btn btn-primary",
+    //         buttonup_class: "btn btn-primary",
+    //         buttondown_txt: '<i class="feather icon-minus"></i>',
+    //         buttonup_txt: '<i class="feather icon-plus"></i>'
+    //     });
 
 $("#chart1").sparkline([5,6,7,8,9,10,12,13,15,14,13,12,10,9,8,10,12,14,15,16,17,14,12,11,10,8], {
     type: 'bar',

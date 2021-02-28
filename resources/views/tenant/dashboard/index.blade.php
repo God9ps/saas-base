@@ -56,6 +56,7 @@
     </footer>
 
     @yield('adicionalJs')
+    @yield('scripts')
 
     <!-- END: Page JS-->
 

@@ -4,6 +4,7 @@ return [
     'userManagement' => [
         'title'          => 'Gestão de Utilizador',
         'title_singular' => 'Gestão de Utilizador',
+        'create_new_user' => 'Criar Novo Utilizador',
     ],
     'permission'     => [
         'title'          => 'Permissões',

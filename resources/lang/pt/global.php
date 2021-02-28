@@ -264,4 +264,10 @@ return [
     'no_alerts'                            => 'No alerts',
     'calendar'                             => 'Calendar',
     'messenger'                            => 'Messenger',
+    'toast_messages'                       => [
+        'success_title'                    => 'ótimo',
+        'admin_status_success'             => 'Alterou as permissões do utilizador.',
+        'error_title'                      => 'Oooopss',
+        'admin_status_error'               => 'Algo correu mal! Tente mais tarde.',
+    ],
 ];

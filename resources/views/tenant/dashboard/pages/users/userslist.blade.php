@@ -4,6 +4,8 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/vendors.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/extensions/toastr.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/forms/icheck/icheck.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/forms/icheck/custom.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/forms/toggle/switchery.min.css')}}">
@@ -21,6 +23,8 @@
           href="{{asset('admin-panel/app-assets/css/core/menu/menu-types/horizontal-menu.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{asset('admin-panel/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/plugins/extensions/toastr.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/plugins/forms/switch.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/pages/page-users.css')}}">
     <!-- END: Page CSS-->
@@ -34,46 +38,22 @@
     <div class="content-body">
         <!-- users list start -->
         <section class="users-list-wrapper">
-            <div class="users-list-filter px-1">
-                <form>
-                    <div class="row border border-light rounded py-2 mb-2">
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <label for="users-list-verified">Verified</label>
-                            <fieldset class="form-group">
-                                <select class="form-control" id="users-list-verified">
-                                    <option value="">Any</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <label for="users-list-role">Role</label>
-                            <fieldset class="form-group">
-                                <select class="form-control" id="users-list-role">
-                                    <option value="">Any</option>
-                                    <option value="User">User</option>
-                                    <option value="Staff">Staff</option>
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3">
-                            <label for="users-list-status">Status</label>
-                            <fieldset class="form-group">
-                                <select class="form-control" id="users-list-status">
-                                    <option value="">Any</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Close">Close</option>
-                                    <option value="Banned">Banned</option>
-                                </select>
-                            </fieldset>
-                        </div>
-                        <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-                            <button class="btn btn-block btn-primary glow">Show</button>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{trans('global.actions')}}</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <!-- Basic context menu starts -->
+                            <a class="btn btn-primary mr-1 mb-1 basic-context-menu" type="button">
+                                {{trans('cruds.userManagement.create_new_user')}}
+                            </a>
+                            <!-- /Basic context menu starts -->
+
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
 
             <!-- active users and my task timeline cards starts here -->
             <div class="row match-height">
@@ -134,7 +114,7 @@
                                                 </div>
                                             </td>-->
                                             <td class="align-middle">
-                                                <input type="checkbox" class="switch" {{$admin->is_admin == 1 ? 'checked' : ''}} id="is_admin" data-group-cls="btn-group-sm" hidden="">
+                                                <input type="checkbox" onchange="toggleAdmin(this, {{$admin->id}})" class="switch" {{$admin->is_admin == 1 ? 'checked' : ''}} id="is_admin" data-group-cls="btn-group-sm" hidden="">
                                             </td>
                                             <td class="align-middle">
                                                 <div class="dropdown">
@@ -171,6 +151,7 @@
 @endsection
 @section('adicionalJs')
     <!-- BEGIN: Vendor JS-->
+
     <script src="{{asset('admin-panel/app-assets/vendors/js/vendors.min.js')}}"></script>
 
     <!-- BEGIN Vendor JS-->
@@ -178,6 +159,8 @@
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{asset('admin-panel/app-assets/vendors/js/ui/jquery.sticky.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/charts/jquery.sparkline.min.js')}}"></script>
+    <script src="{{asset('admin-panel/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/icheck/icheck.min.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
@@ -190,6 +173,7 @@
 
     <!-- BEGIN: Page JS-->
     <script src="{{asset('admin-panel/app-assets/js/scripts/ui/breadcrumbs-with-stats.js')}}"></script>
+
     <script src="{{asset('admin-panel/app-assets/js/scripts/pages/page-users.js')}}"></script>
     <!-- END: Page JS-->
 
@@ -198,5 +182,32 @@
 @section('scripts')
     <script>
 
+        function toggleAdmin(event, id){
+            let is_admin = event.checked ? 1 : 0;
+
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                url: '/dashboard/user/' + id,
+                dataType: 'json',
+                type: 'put',
+                data: {
+                    is_admin: is_admin,
+                },
+
+                success: function (response) {
+                    if(response.success){
+                        toastr.success('{{trans('global.toast_messages.admin_status_success')}}', '{{trans('global.toast_messages.success_title')}}');
+                    }else{
+                        toastr.error('{{trans('global.toast_messages.admin_status_error')}}', '{{trans('global.toast_messages.error_title')}}');
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+
+        }
     </script>
 @endsection

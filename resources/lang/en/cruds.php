@@ -4,6 +4,7 @@ return [
     'userManagement' => [
         'title'          => 'User management',
         'title_singular' => 'User management',
+        'create_new_user' => 'Create New User',
     ],
     'permission'     => [
         'title'          => 'Permissions',

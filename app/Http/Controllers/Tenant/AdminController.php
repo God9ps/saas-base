@@ -52,11 +52,17 @@ class AdminController extends Controller
      */
     public function edit($subdomain, Admin $admin)
     {
-
-        abort_if((auth()->id() !== $admin->id || !$admin->isadmin()), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if((auth()->id() !== $admin->id || auth()->user()->isadmin() === false), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $countries = Country::all();
         return view('tenant.dashboard.pages.users.userEdit', compact(['admin', 'countries']));
+    }
+
+    public function toggleAdmin(Request $request, $subdomain, $id)
+    {
+        return (Admin::where('id', $id)->update(['is_admin' => $request->is_admin])) ?
+            response()->json(['success' => true]) :
+            response()->json(['success' => false]);
     }
 
     public function update()
