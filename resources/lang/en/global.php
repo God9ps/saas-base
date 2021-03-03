@@ -30,6 +30,7 @@ return [
     'reset_password'                       => 'Reset Password',
     'send_password'                        => 'Send Password Reset Link',
     'save'                                 => 'Save',
+    'cancel'                               => 'Cancel',
     'search'                               => 'Search',
     'searching'                            => 'Searching',
     'no_results'                           => 'No results',
@@ -266,8 +267,15 @@ return [
     'messenger'                            => 'Messenger',
     'toast_messages'                       => [
         'success_title'                    => 'Great',
-        'admin_status_success'             => 'You had change the user permissions with success',
         'error_title'                      => 'Oooopss',
+
+        'admin_status_success'             => 'You had change the user permissions with success',
+        'admin_avatar_success'             => 'You had change the user avatar with success',
         'admin_status_error'               => 'Something went wrong',
+        'admin_avatar_error'               => 'Something went wrong',
+    ],
+    'modals'                               => [
+        'close'                            => 'Close',
+        'submit'                           => 'Submit',
     ],
 ];

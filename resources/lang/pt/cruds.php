@@ -76,6 +76,10 @@ return [
             'password_helper'          => '',
             'roles'                    => 'Regras',
             'roles_helper'             => '',
+            'choose_avatar'            => 'Escolha a Foto',
+            'choose_avatar_helper'     => '',
+            'change_avatar'            => 'Alterar Foto',
+            'change_avatar_helper'     => '',
             'remember_token'           => 'Remember Token',
             'remember_token_helper'    => '',
             'created_at'               => 'Criado em',
@@ -84,6 +88,8 @@ return [
             'updated_at_helper'        => '',
             'deleted_at'               => 'Eliminado em',
             'deleted_at_helper'        => '',
+            'updated_success'          => 'Utilizador alterado com sucesso',
+
         ],
     ],
     'country'        => [

@@ -22,6 +22,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  */
 class Admin extends Authenticatable implements HasMedia
 {
+
     use HasApiTokens;
     use Notifiable;
     use SoftDeletes;
@@ -47,6 +48,7 @@ class Admin extends Authenticatable implements HasMedia
         'name',
         'created_by',
         'email',
+        'avatar',
         'password',
         'created_at',
         'updated_at',

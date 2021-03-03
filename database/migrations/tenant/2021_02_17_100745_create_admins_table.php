@@ -21,6 +21,7 @@ class CreateAdminsTable extends Migration
             $table->foreign('created_by')->references('id')->on($db.'.users');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('avatar')->nullable();
             $table->datetime('email_verified_at')->nullable();
             $table->string('password');
             $table->string('vat_number')->nullable();

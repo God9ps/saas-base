@@ -30,6 +30,7 @@ return [
     'reset_password'                       => 'Reiniciar Password',
     'send_password'                        => 'Enviar link de password',
     'save'                                 => 'Guardar',
+    'cancel'                               => 'Cancelar',
     'search'                               => 'Procurar',
     'searching'                            => 'A procurar...',
     'no_results'                           => 'Sem resultados',
@@ -266,8 +267,15 @@ return [
     'messenger'                            => 'Messenger',
     'toast_messages'                       => [
         'success_title'                    => 'ótimo',
-        'admin_status_success'             => 'Alterou as permissões do utilizador.',
         'error_title'                      => 'Oooopss',
+
+        'admin_status_success'             => 'Alterou as permissões do utilizador.',
+        'admin_avatar_success'             => 'Alterou o avatar do utilizador com sucesso.',
         'admin_status_error'               => 'Algo correu mal! Tente mais tarde.',
+        'admin_avatar_error'               => 'Algo correu mal! Tente mais tarde.',
+    ],
+    'modals'                               => [
+        'close'                            => 'Fechar',
+        'submit'                           => 'Submeter',
     ],
 ];

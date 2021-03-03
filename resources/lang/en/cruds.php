@@ -76,6 +76,10 @@ return [
             'password_helper'          => '',
             'roles'                    => 'Roles',
             'roles_helper'             => '',
+            'choose_avatar'            => 'Choose Avatar',
+            'choose_avatar_helper'     => '',
+            'change_avatar'            => 'Change Avatar',
+            'change_avatar_helper'     => '',
             'remember_token'           => 'Remember Token',
             'remember_token_helper'    => '',
             'created_at'               => 'Created at',
@@ -84,6 +88,7 @@ return [
             'updated_at_helper'        => '',
             'deleted_at'               => 'Deleted at',
             'deleted_at_helper'        => '',
+            'updated_success'          => 'User updated with success',
         ],
     ],
     'country'        => [

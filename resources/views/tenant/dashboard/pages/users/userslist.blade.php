@@ -89,8 +89,8 @@
                                             <td class="text-truncate">
                                                 <div class="avatar avatar-md mr-1">
                                                     <img class="rounded-circle"
-                                                         src=""
-                                                         alt="Generic placeholder image">
+                                                         src="{{asset('storage/'.$admin->avatar)}}"
+                                                         alt="{{$admin->name}}">
                                                 </div>
                                             </td>
                                             <td class="align-middle">

@@ -12,6 +12,8 @@ Route::group(['prefix' => 'dashboard'], function () {
     Route::get('/users', 'Tenant\AdminController@usersList')->name('tenant.users.list');
     Route::get('/user/{admin}', 'Tenant\AdminController@edit')->name('tenant.user.edit');
     Route::put('/user/{id}', 'Tenant\AdminController@toggleAdmin')->name('tenant.user.admin');
+    Route::post('/user/{admin}', 'Tenant\AdminController@update')->name('tenant.user.update');
+    Route::post('/upload/avatar', 'Tenant\AdminController@uploadAvatar')->name('tenant.upload.avatar');
 });
 
 Route::get('/login', 'Tenant\Auth\AdminLoginController@showLoginForm')->name('tenant.login');
