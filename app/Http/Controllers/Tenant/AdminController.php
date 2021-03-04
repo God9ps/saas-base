@@ -88,7 +88,7 @@ class AdminController extends Controller
 
     public function update(Request $request, $subdomain ,Admin $admin)
     {
-        DB::setDefaultConnection('tenant');
+        switch_connection_to('tenant');
         request()->validate([
             'name' => 'required',
             'email' => 'required|unique:admins,email,'.$admin->id,

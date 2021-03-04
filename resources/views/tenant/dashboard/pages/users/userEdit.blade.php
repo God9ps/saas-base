@@ -16,7 +16,9 @@
 
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/bootstrap.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/bootstrap-extended.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/js/ui/popper.min.js')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/colors.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/components.css')}}">
     <!-- END: Theme CSS-->
@@ -26,6 +28,8 @@
           href="{{asset('admin-panel/app-assets/css/core/menu/menu-types/horizontal-menu.css')}}">
     <link rel="stylesheet" type="text/css"
           href="{{asset('admin-panel/app-assets/css/core/colors/palette-gradient.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/core/colors/palette-tooltip.css')}}">
+
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/plugins/extensions/toastr.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/css/plugins/images/cropper/cropper.css')}}">
@@ -116,24 +120,57 @@
                                                     @endif
                                                 </div>
                                             </div>
+
+
+
+
                                             <div class="form-group">
-                                                <div class="controls">
-                                                    <label class="required" for="phone_number">{{ trans('cruds.user.fields.phone_number') }}</label>
-                                                    <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $admin->phone_number) }}">
-                                                    @if($errors->has('phone_number'))
-                                                        <div class="invalid-feedback">
-                                                            {{ $errors->first('phone_number') }}
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="controls">
+                                                            <label for="phone_number">{{ trans('cruds.user.fields.phone_number') }}</label>
+                                                            <div class="position-relative has-icon-right">
+                                                                <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $admin->phone_number) }}">
+                                                                @if($errors->has('phone_number'))
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $errors->first('phone_number') }}
+                                                                    </div>
+                                                                @endif
+                                                                <div class="form-control-position">
+                                                                    {!! trans('cruds.user.fields.phone_number_helper')  !!}
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    @endif
-                                                    <span class="help-block">{{ trans('cruds.user.fields.phone_number_helper') }}</span>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="controls">
+                                                            <label for="vat_number" data-toggle="tooltip" data-placement="top" title="">{{ trans('cruds.user.fields.vat_number') }}</label>
+                                                            <div class="position-relative has-icon-right">
+                                                                <input class="form-control {{ $errors->has('vat_number') ? 'is-invalid' : '' }}" type="text" name="vat_number" id="vat_number" value="{{ old('vat_number', $admin->vat_number) }}">
+                                                                @if($errors->has('vat_number'))
+                                                                    <div class="invalid-feedback">
+                                                                        {{ $errors->first('vat_number') }}
+                                                                    </div>
+                                                                @endif
+                                                                <div class="form-control-position">
+                                                                    {!! trans('cruds.user.fields.vat_number_helper')  !!}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
+
+
+
+
+
                                             @if(auth()->user()->isadmin())
                                                 <div class="form-group">
                                                     <div class="controls">
-                                                        <label class="required" for="is_admin">{{ trans('cruds.user.fields.is_admin') }}</label><br>
+                                                        <label class="required" for="is_admin">{{ trans('cruds.user.fields.is_admin') }} {!! trans('cruds.user.fields.is_admin_helper') !!}</label><br>
                                                         <input type="checkbox" class="switch" {{$admin->is_admin == 1 ? 'checked' : ''}} id="is_admin" name="is_admin" data-group-cls="btn-group" hidden="">
-                                                        <span class="help-block">{{ trans('cruds.user.fields.is_admin_helper') }}</span>
+
                                                     </div>
                                                 </div>
                                             @endif
@@ -187,17 +224,19 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="controls">
-                                                    <label class="required" for="country">{{ trans('cruds.user.fields.country') }}</label>
+                                                    <label for="country">{{ trans('cruds.user.fields.country') }}</label>
                                                     <select class="form-control select2" name="country_id" id="country_id">
                                                         <option>{{ trans('cruds.user.fields.select_country') }}</option>
 
                                                     @foreach($countries as $country)
-                                                            <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                                        <option {{$country->id === $admin->country_id ? 'selected' : ''}}
+                                                                value="{{ $country->id }}">
+                                                            {{$country->name }}
+                                                        </option>
                                                     @endforeach
                                                     </select>
                                                 </div>
@@ -208,7 +247,7 @@
                                             <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">{{trans('global.save')}}</button>
                                             <button type="reset" class="btn btn-light">{{trans('global.cancel')}}</button>
                                         </div>
-                                    </div>\
+                                    </div>
                                 </form>
                                 <!-- users edit account form ends -->
                             </div>
@@ -385,6 +424,7 @@
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/toggle/switchery.min.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}"></script>
+    <script src="{{asset('admin-panel/app-assets/vendors/js/forms/extended/inputmask/jquery.inputmask.bundle.min.js')}}"></script>
 
     <!-- END: Page Vendor JS-->
 
@@ -397,12 +437,15 @@
     <script src="{{asset('admin-panel/app-assets/js/scripts/ui/breadcrumbs-with-stats.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/js/scripts/pages/page-users.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
+    <script src="{{asset('admin-panel/app-assets/js/scripts/tooltip/tooltip.js')}}"></script>
     <!-- END: Page JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js"
             integrity="sha512-9pGiHYK23sqK5Zm0oF45sNBAX/JqbZEP7bSDHyt+nT3GddF+VFIcYNqREt0GDpmFVZI3LZ17Zu9nMMc9iktkCw=="
             crossorigin="anonymous"></script>
     <script src="{{asset('admin-panel/app-assets/js/scripts/tables/components/table-components.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/js/scripts/navs/navs.js')}}"></script>
+    <script src="{{asset('admin-panel/app-assets/js/scripts/forms/extended/form-inputmask.js')}}"></script>
+
 
 
     <!-- END: Page Vendor JS-->
@@ -413,6 +456,19 @@
 @endsection
 @section('scripts')
     <script>
+        $(document).ready(function (){
+
+            $('[for="vat_number"]').tooltip()
+
+            $('#phone_number').inputmask({
+                mask: ['+99[9] 999 999 999']
+            });
+
+
+
+        })
+
+
         async function crop(event, id) {
             event.preventDefault();
             event.stopPropagation();
