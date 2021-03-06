@@ -23,4 +23,4 @@ Route::get('/logout', 'Tenant\Auth\AdminLoginController@logout')->name('tenant.l
 // todo: criar gestor de imagens que funcione na bd global e nos tenants (usar created_by e usar a bd global com uma tabela para a media)
 // todo: habilitar inserção de imagem nos admins para que possam ser utilizadas globalmente
 
-//TODO: Adicionar tooltips de ajuda nos campos dos formulários
+

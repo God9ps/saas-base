@@ -45,6 +45,18 @@
         font-size: .7rem;
         color: red;
     }
+
+    @media only screen and (max-width: 600px) {
+        input[type="text"],
+        input[type="email"],
+        option
+        {
+            font-size:12px;
+        }
+    }
+
+
+
 </style>
 @endsection
 
@@ -462,6 +474,10 @@
 
             $('#phone_number').inputmask({
                 mask: ['+99[9] 999 999 999']
+            });
+
+            $('#vat_number').inputmask({
+                mask: ['AA[A] 999 999 999']
             });
 
 
