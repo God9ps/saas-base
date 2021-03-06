@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'settings'                             => 'Definições',
     'actions'                              => 'Ações',
     'add'                                  => 'Adicionar',
     'allRightsReserved'                    => 'Todos os direitos reservados.',

@@ -12,13 +12,13 @@
             </li>
 
             @if(auth()->user()->isadmin())
-                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-settings"></i><span data-i18n="Pages">Settings</span></a>
+                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-settings"></i><span data-i18n="Pages">{{trans('global.settings')}}</span></a>
                     <ul class="dropdown-menu">
 
-                        <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-i18n="Users" data-toggle="dropdown">Users</a>
+                        <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-i18n="Users" data-toggle="dropdown">{{trans('cruds.user.list')}}</a>
                             <ul class="dropdown-menu">
-                                <li data-menu=""><a class="dropdown-item" href="{{route('tenant.users.list', ['subdomain' => request()->subdomain])}}" data-i18n="Users List" data-toggle="dropdown">Users List</a>
-                                </li>
+                                <li data-menu=""><a class="dropdown-item" href="{{route('tenant.users.list', ['subdomain' => request()->subdomain])}}" data-i18n="Users List" data-toggle="dropdown">{{trans('cruds.user.list')}}</a></li>
+                                <li data-menu=""><a class="dropdown-item" href="{{route('tenant.user.create', ['subdomain' => request()->subdomain])}}" data-i18n="Users List" data-toggle="dropdown">{{trans('cruds.user.create')}}</a></li>
 
                             </ul>
                         </li>

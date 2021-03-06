@@ -46,7 +46,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             <!-- Basic context menu starts -->
-                            <a class="btn btn-primary mr-1 mb-1 basic-context-menu" type="button">
+                            <a class="btn btn-primary mr-1 mb-1 basic-context-menu" type="button" href="{{route('tenant.user.create', ['subdomain' => request()->subdomain])}}">
                                 {{trans('cruds.userManagement.create_new_user')}}
                             </a>
                             <!-- /Basic context menu starts -->

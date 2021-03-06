@@ -24,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Tenant\DatabaseCreated' => [
             'App\Listeners\Tenant\RunTenantDatabaseMigrations',
         ],
+
     ];
 
     /**

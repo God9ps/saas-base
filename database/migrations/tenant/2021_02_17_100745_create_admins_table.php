@@ -33,6 +33,7 @@ class CreateAdminsTable extends Migration
             $table->string('postcode')->nullable();
             $table->string('phone_number')->nullable();
             $table->tinyInteger('is_admin')->default(0);
+            $table->date('birth_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

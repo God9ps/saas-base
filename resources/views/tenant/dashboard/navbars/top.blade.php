@@ -94,7 +94,7 @@
                     </li>
 
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <div class="avatar avatar-online"><img src="{{asset('admin-panel/app-assets/images/portrait/small/avatar-s-1.png')}}" alt="avatar"><i></i></div><span class="user-name">{{auth()->user()->name}}</span>
+                            <div class="avatar avatar-online"><img src="{{asset('storage/'.auth()->user()->avatar)}}" alt="avatar" id="navbar-avatar"><i></i></div><span class="user-name">{{auth()->user()->name}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{route('tenant.user.edit', ['admin' => auth()->id(), 'subdomain' => request()->subdomain])}}"><i class="feather icon-user"></i> Edit Profile</a>

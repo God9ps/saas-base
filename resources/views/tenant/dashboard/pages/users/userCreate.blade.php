@@ -81,31 +81,18 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
-                                <!-- users edit media object start -->
-                                <div class="media mb-2">
-                                    <a class="mr-2" href="#">
-                                        <img src="{{asset('storage/'.$admin->avatar)}}" alt="{{$admin->name}}" id="preview-avatar" class="users-avatar-shadow rounded-circle" height="64" width="64">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">Avatar</h4>
-                                        <div class="col-12 px-0 d-flex">
-                                            <button type="button" class="btn btn-sm btn-primary mr-25" data-toggle="modal" data-target="#avatarModal">
-                                                {{trans('cruds.user.fields.change_avatar')}}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if (\Session::has('success'))
+
+                                {{--@if (\Session::has('success'))
                                     <div class="alert alert-success alert-dismissible mb-2" role="alert">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
                                         <strong>{{trans('global.toast_messages.success_title')}}</strong> {!! \Session::get('success') !!}
                                     </div>
-                                @endif
+                                @endif--}}
                                 <!-- users edit media object ends -->
                                 <!-- users edit account form start -->
-                                <form action="{{route('tenant.user.update', ['subdomain' => request()->subdomain, 'admin' => $admin->id])}}" name="admin_edit_form" method="post">
+                                <form action="{{route('tenant.user.store', ['subdomain' => request()->subdomain])}}" name="admin_create_form" method="post">
                                     @csrf
 {{--                                    {{ method_field('PUT') }}--}}
                                     <div class="row">
@@ -113,7 +100,7 @@
                                             <div class="form-group">
                                                 <div class="controls">
                                                     <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
-                                                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $admin->name) }}" required>
+                                                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="" required>
                                                     @if($errors->has('name'))
                                                         <div class="invalid-feedback">
                                                             {{ $errors->first('name') }}
@@ -124,7 +111,7 @@
                                             <div class="form-group">
                                                 <div class="controls">
                                                     <label class="required" for="email">{{ trans('cruds.user.fields.email') }}</label>
-                                                    <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email', $admin->email) }}" required>
+                                                    <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="" required>
                                                     @if($errors->has('email'))
                                                         <div class="invalid-feedback">
                                                             {{ $errors->first('email') }}
@@ -132,17 +119,13 @@
                                                     @endif
                                                 </div>
                                             </div>
-
-
-
-
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="controls">
                                                             <label for="phone_number">{{ trans('cruds.user.fields.phone_number') }}</label>
                                                             <div class="position-relative has-icon-right">
-                                                                <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number', $admin->phone_number) }}">
+                                                                <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="">
                                                                 @if($errors->has('phone_number'))
                                                                     <div class="invalid-feedback">
                                                                         {{ $errors->first('phone_number') }}
@@ -158,7 +141,7 @@
                                                         <div class="controls">
                                                             <label for="vat_number" data-toggle="tooltip" data-placement="top" title="">{{ trans('cruds.user.fields.vat_number') }}</label>
                                                             <div class="position-relative has-icon-right">
-                                                                <input class="form-control {{ $errors->has('vat_number') ? 'is-invalid' : '' }}" type="text" name="vat_number" id="vat_number" value="{{ old('vat_number', $admin->vat_number) }}">
+                                                                <input class="form-control {{ $errors->has('vat_number') ? 'is-invalid' : '' }}" type="text" name="vat_number" id="vat_number" value="">
                                                                 @if($errors->has('vat_number'))
                                                                     <div class="invalid-feedback">
                                                                         {{ $errors->first('vat_number') }}
@@ -173,26 +156,22 @@
                                                 </div>
                                             </div>
 
-
-
-
-
-                                            @if(auth()->user()->isadmin())
+{{--                                            @if(auth()->user()->isadmin())--}}
                                                 <div class="form-group">
                                                     <div class="controls">
                                                         <label class="required" for="is_admin">{{ trans('cruds.user.fields.is_admin') }} {!! trans('cruds.user.fields.is_admin_helper') !!}</label><br>
-                                                        <input type="checkbox" class="switch" {{$admin->is_admin == 1 ? 'checked' : ''}} id="is_admin" name="is_admin" data-group-cls="btn-group" hidden="">
+                                                        <input type="checkbox" class="switch" id="is_admin" name="is_admin" data-group-cls="btn-group" hidden="">
 
                                                     </div>
                                                 </div>
-                                            @endif
+{{--                                            @endif--}}
 
                                         </div>
                                         <div class="col-12 col-sm-6">
                                             <div class="form-group">
                                                 <div class="controls">
                                                     <label class="required" for="address_1">{{ trans('cruds.user.fields.address') }}</label>
-                                                    <input class="form-control {{ $errors->has('address_1') ? 'is-invalid' : '' }}" type="text" name="address_1" id="address_1" value="{{ old('address_1', $admin->address_1) }}" >
+                                                    <input class="form-control {{ $errors->has('address_1') ? 'is-invalid' : '' }}" type="text" name="address_1" id="address_1" value="" >
                                                     @if($errors->has('address_1'))
                                                         <div class="invalid-feedback">
                                                             {{ $errors->first('address_1') }}
@@ -203,7 +182,7 @@
                                             <div class="form-group">
                                                 <div class="controls">
                                                     <label class="required" for="address_2">{{ trans('cruds.user.fields.address2') }}</label>
-                                                    <input class="form-control {{ $errors->has('address_2') ? 'is-invalid' : '' }}" type="text" name="address_2" id="address_2" value="{{ old('address_2', $admin->address_2) }}" >
+                                                    <input class="form-control {{ $errors->has('address_2') ? 'is-invalid' : '' }}" type="text" name="address_2" id="address_2" value="" >
                                                     @if($errors->has('address_2'))
                                                         <div class="invalid-feedback">
                                                             {{ $errors->first('address_2') }}
@@ -216,7 +195,7 @@
                                                     <div class="col-4">
                                                         <div class="controls">
                                                             <label class="required" for="postcode">{{ trans('cruds.user.fields.postcode') }}</label>
-                                                            <input class="form-control {{ $errors->has('postcode') ? 'is-invalid' : '' }}" type="text" name="postcode" id="postcode" value="{{ old('postcode', $admin->postcode) }}">
+                                                            <input class="form-control {{ $errors->has('postcode') ? 'is-invalid' : '' }}" type="text" name="postcode" id="postcode" value="">
                                                             @if($errors->has('postcode'))
                                                                 <div class="invalid-feedback">
                                                                     {{ $errors->first('postcode') }}
@@ -227,7 +206,7 @@
                                                     <div class="col-8">
                                                         <div class="controls">
                                                             <label class="required" for="city">{{ trans('cruds.user.fields.city') }}</label>
-                                                            <input class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" type="text" name="city" id="city" value="{{ old('city', $admin->city) }}">
+                                                            <input class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" type="text" name="city" id="city" value="">
                                                             @if($errors->has('city'))
                                                                 <div class="invalid-feedback">
                                                                     {{ $errors->first('city') }}
@@ -244,8 +223,7 @@
                                                     <select class="form-control select2" name="country_id" id="country_id" required>
 
                                                     @foreach($countries as $country)
-                                                        <option {{$country->id === $admin->country_id ? 'selected' : ''}}
-                                                                value="{{ $country->id }}">
+                                                        <option value="{{ $country->id }}">
                                                             {{$country->name }}
                                                         </option>
                                                     @endforeach
@@ -381,43 +359,6 @@
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade text-left" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="avatarModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <label class="modal-title text-text-bold-600" id="avatarModal">{{trans('cruds.user.fields.change_avatar')}}</label>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="#">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col">
-                                <fieldset class="form-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" onchange="loadFile(event)" id="avatar" name="avatar">
-                                        <label class="custom-file-label" for="avatar">{{trans('cruds.user.fields.choose_avatar')}}</label>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col" style="max-width: 93%">
-                                <img src="" id="output" class="img-fluid">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="reset" class="btn btn-outline-secondary btn-lg" data-dismiss="modal" value="{{trans('global.modals.close')}}">
-                        <button onclick="crop(event, {{$admin->id}}); return false;" class="btn btn-outline-primary btn-lg">{{trans('global.modals.submit')}}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
 @endsection
 @section('adicionalJs')
 
@@ -479,69 +420,7 @@
                 mask: ['AA[A] 999 999 999']
             });
 
-
-
         })
 
-
-        async function crop(event, id) {
-            event.preventDefault();
-            event.stopPropagation();
-            canvas = cropperGlobal.getCroppedCanvas({
-                width: 400,
-                height: 400
-            });
-
-            canvas.toBlob(function (blob) {
-                url = URL.createObjectURL(blob);
-                let reader = new FileReader();
-                reader.readAsDataURL(blob);
-                reader.onloadend = function () {
-                    let base64data = reader.result;
-                    $.ajax({
-                        headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
-                        type: "POST",
-                        dataType: "json",
-                        url: "{{route('tenant.upload.avatar', ['subdomain' => request()->subdomain])}}",
-                        data: {
-                            'base64': base64data,
-                            'id': id,
-                        },
-                        success: function (data) {
-                            if(data.success){
-                                event.preventDefault();
-                                event.stopPropagation();
-                                toastr.success('{{trans('global.toast_messages.admin_avatar_success')}}', '{{trans('global.toast_messages.success_title')}}');
-                                document.getElementById('preview-avatar').src = data.avatar
-                                document.getElementById('navbar-avatar').src = data.avatar
-                                $("#avatarModal").modal('hide')
-                            }else{
-                                toastr.error('{{trans('global.toast_messages.admin_avatar_error')}}', '{{trans('global.toast_messages.error_title')}}');
-                            }
-                        },
-                        error: function (data) {
-                            toastr.error('{{trans('global.toast_messages.admin_avatar_error')}}', '{{trans('global.toast_messages.error_title')}}');
-                        }
-                    });
-                }
-            });
-        }
-
-        function loadFile(event) {
-            var output = document.getElementById('output');
-            output.src = URL.createObjectURL(event.target.files[0]);
-
-            output.onload = function () {
-                let width = output.naturalWidth,
-                    height = output.naturalHeight;
-            }
-
-            cropperGlobal = new Cropper(output, {
-                minContainerWidth: 350,
-                minContainerHeight: 350,
-                aspectRatio: 1,
-                viewMode: 3
-            });
-        }
     </script>
 @endsection

@@ -46,6 +46,8 @@ return [
     ],
     'user'           => [
         'title'          => 'Utilizadores',
+        'list'           => 'Lista de Utilizadores',
+        'create'         => 'Novo Utilizador',
         'title_singular' => 'Utilizador',
         'fields'         => [
             'id'                       => 'ID',
@@ -91,6 +93,13 @@ return [
             'deleted_at'               => 'Eliminado em',
             'deleted_at_helper'        => '',
             'updated_success'          => 'Utilizador alterado com sucesso',
+            'created_success'          => 'Utilizador criado com sucesso',
+        ],
+        'email' => [
+            'greeting_new_user' => "Benvindo a " . env('APP_NAME'),
+            'credentials_message' => "As suas credenciais de acesso são:",
+            'access_app' => "Clique aqui para ir para " . env('APP_NAME'),
+            'thanks' => 'Obrigado por usar a nossa plataforma!',
 
         ],
     ],

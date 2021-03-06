@@ -59,6 +59,7 @@ class Admin extends Authenticatable implements HasMedia
         'address_2',
         'country_id',
         'city',
+        'birth_date',
         'country_id',
         'postcode',
         'phone_number',

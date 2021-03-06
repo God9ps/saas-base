@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Tenant\Admin;
+use App\Notifications\NewAdminEmailNotification;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
@@ -44,6 +46,50 @@ class AdminController extends Controller
 
         $admins = Admin::paginate(10);
         return view('tenant.dashboard.pages.users.userslist', compact(['admins']));
+    }
+
+    public function create()
+    {
+        $countries = Country::all();
+        return view('tenant.dashboard.pages.users.userCreate', compact(['countries']));
+    }
+
+    public function store(Request $request)
+    {
+        switch_connection_to('tenant');
+        request()->validate([
+            'name' => 'required',
+            'email' => 'required|unique:admins',
+            'avatar' => 'mimes:jpg,png,jpeg|max:2048',
+        ]);
+
+        $is_admin = (isset($request->is_admin) && $request->is_admin === 'on' ? 1 : 0);
+        $password = Str::random(10);
+        try{
+            $admin = Admin::create([
+                'name' => $request->name ,
+                'email' => $request->email ,
+                'created_by' => auth()->user()->owner->id,
+                'password' => Hash::make($password) ,
+                'vat_number' => $request->vat_number ,
+                'address_1' => $request->address_1 ,
+                'address_2' => $request->address_2 ,
+                'city' => $request->city ,
+                'country_id' => $request->country_id ?? null,
+                'postcode' => $request->postcode ,
+                'phone_number' => $request->phone_number ,
+                'is_admin' => $is_admin,
+                'birth_date' => $request->birth_date ?? null,
+            ]);
+        }catch (\Exception $e){
+            abort(Response::HTTP_NOT_IMPLEMENTED, $e->getMessage());
+        }
+
+        $admin->notify(new NewAdminEmailNotification($request->subdomain, $request->email, $password));
+
+        return redirect()
+            ->route('tenant.users.list', [
+                'subdomain' => request()->subdomain]);
     }
 
     /**
@@ -109,6 +155,7 @@ class AdminController extends Controller
                 'postcode' => $request->postcode ,
                 'phone_number' => $request->phone_number ,
                 'is_admin' => $is_admin,
+                'birth_date' => $request->birth_date,
                 'updated_at' => Carbon::now() ,
             ]);
         }catch (\Exception $e){

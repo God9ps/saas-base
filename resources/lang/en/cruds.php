@@ -46,6 +46,8 @@ return [
     ],
     'user'           => [
         'title'          => 'Users',
+        'list'           => 'Users List',
+        'create'         => 'Create User',
         'title_singular' => 'User',
         'fields'         => [
             'id'                       => 'ID',
@@ -91,6 +93,13 @@ return [
             'deleted_at'               => 'Deleted at',
             'deleted_at_helper'        => '',
             'updated_success'          => 'User updated with success',
+            'created_success'          => 'User created with success',
+        ],
+        'email' => [
+            'greeting_new_user' => "Welcome to " . env('APP_NAME'),
+            'credentials_message' => "Your user credentias are:",
+            'access_app' => "Click here to go to " . env('APP_NAME'),
+            'thanks' => 'Thank you for using our application!',
         ],
     ],
     'country'        => [
