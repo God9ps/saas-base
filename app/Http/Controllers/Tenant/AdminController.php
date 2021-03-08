@@ -20,22 +20,12 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class AdminController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware(['auth:admin', 'tenant']);
-
     }
 
-    /**
-     * show dashboard.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
-     */
     public function index()
     {
         return view('tenant.dashboard.pages.index');
@@ -43,20 +33,20 @@ class AdminController extends Controller
 
     public function usersList()
     {
-
         $admins = Admin::paginate(10);
-        return view('tenant.dashboard.pages.users.userslist', compact(['admins']));
+        return view('tenant.dashboard.pages.users.index', compact(['admins']));
     }
 
     public function create()
     {
         $countries = Country::all();
-        return view('tenant.dashboard.pages.users.userCreate', compact(['countries']));
+        return view('tenant.dashboard.pages.users.create', compact(['countries']));
     }
 
     public function store(Request $request)
     {
         switch_connection_to('tenant');
+
         request()->validate([
             'name' => 'required',
             'email' => 'required|unique:admins',
@@ -65,6 +55,7 @@ class AdminController extends Controller
 
         $is_admin = (isset($request->is_admin) && $request->is_admin === 'on' ? 1 : 0);
         $password = Str::random(10);
+
         try{
             $admin = Admin::create([
                 'name' => $request->name ,
@@ -89,22 +80,16 @@ class AdminController extends Controller
 
         return redirect()
             ->route('tenant.users.list', [
-                'subdomain' => request()->subdomain]);
+                'subdomain' => request()->subdomain]
+            );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  String $admin
-     * @return \Illuminate\Http\Response
-     */
     public function edit($subdomain, Admin $admin)
     {
-
         abort_if(auth()->id() !== $admin->id && auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $countries = Country::all();
-        return view('tenant.dashboard.pages.users.userEdit', compact(['admin', 'countries']));
+        return view('tenant.dashboard.pages.users.edit', compact(['admin', 'countries']));
     }
 
     public function toggleAdmin(Request $request, $subdomain, $id)
@@ -135,6 +120,7 @@ class AdminController extends Controller
     public function update(Request $request, $subdomain ,Admin $admin)
     {
         switch_connection_to('tenant');
+
         request()->validate([
             'name' => 'required',
             'email' => 'required|unique:admins,email,'.$admin->id,
@@ -168,4 +154,21 @@ class AdminController extends Controller
                 'admin' => $admin->id
             ])->with('success', trans('cruds.user.fields.updated_success'));
     }
+
+    public function delete($subdomain, Admin $admin)
+    {
+        abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        try{
+            Admin::where('id', $admin->id)->delete();
+        }catch (\Exception $e){
+            abort(Response::HTTP_NOT_IMPLEMENTED, $e->getMessage());
+        }
+
+        return redirect()
+            ->route('tenant.users.list', [
+                'subdomain' => request()->subdomain]
+            );
+    }
+
 }

@@ -125,7 +125,10 @@
                                                     <div class="dropdown-menu dropdown-menu-right"
                                                          aria-labelledby="dropdownMenuButton">
                                                         <a class="dropdown-item" href="{{route('tenant.user.edit', ['admin' => $admin->id, 'subdomain' => request()->subdomain])}}">
-                                                            <span class="feather icon-edit"></span> Edit
+                                                            <span class="feather icon-edit"></span> {{trans('global.edit')}}
+                                                        </a>
+                                                        <a class="dropdown-item" onclick="deleteUser({{$admin->id}})">
+                                                            <span class="feather icon-delete"></span> {{trans('global.delete')}}
                                                         </a>
 <!--                                                        <a class="dropdown-item" href="#">Extras</a>
                                                         <a class="dropdown-item" href="#">Newsletter</a>-->
@@ -205,9 +208,12 @@
                     console.log(error);
                 }
             });
+        }
 
-
-
+        function deleteUser(user){
+            console.log(user);
+            href="{{route('tenant.user.delete', ['admin' => $admin->id, 'subdomain' => request()->subdomain])}}"
+            
         }
     </script>
 @endsection

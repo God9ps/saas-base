@@ -7,8 +7,7 @@
                 <h1>{{ trans('panel.site_title') }}</h1>
 
                 <p class="text-muted">{{ trans('global.reset_password') }}</p>
-
-                <form method="POST" action="{{ route('password.request') }}">
+                <form method="POST" action="{{ route('tenant.password.request', ['subdomain' => request()->subdomain]) }}">
                     @csrf
 
                     <input name="token" value="{{ $token }}" type="hidden">
