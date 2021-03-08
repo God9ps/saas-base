@@ -51,6 +51,9 @@
                                 {{trans('cruds.userManagement.create_new_user')}}
                             </a>
 
+                            <a class="btn btn-danger mr-1 mb-1 basic-context-menu" type="button" href="{{route('tenant.user.delete.all', ['subdomain' => request()->subdomain])}}">
+                                {{trans('cruds.userManagement.delete_all')}}
+                            </a>
                             <!-- /Basic context menu starts -->
 
                         </div>
@@ -63,7 +66,7 @@
                 <div class="col-12">
                     <div class="card active-users">
                         <div class="card-header border-0">
-                            <h4 class="card-title">{{trans('cruds.user.active')}}</h4>
+                            <h4 class="card-title">{{trans('cruds.user.deleted')}}</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">

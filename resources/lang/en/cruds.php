@@ -5,6 +5,7 @@ return [
         'title'          => 'User management',
         'title_singular' => 'User management',
         'create_new_user' => 'Create New User',
+        'delete_all'    => 'Delete Permanently All',
     ],
     'permission'     => [
         'title'          => 'Permissions',
@@ -46,8 +47,10 @@ return [
     ],
     'user'           => [
         'title'          => 'Users',
+        'active'          => 'Active Users',
         'list'           => 'Users List',
         'create'         => 'Create User',
+        'deleted'         => 'Deleted Users',
         'title_singular' => 'User',
         'fields'         => [
             'id'                       => 'ID',

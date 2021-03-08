@@ -12,9 +12,10 @@ Route::group(['prefix' => 'dashboard'], function () {
 
     Route::get('/users', 'Tenant\AdminController@usersList')->name('tenant.users.list');
     Route::get('/user/{admin}', 'Tenant\AdminController@edit')->name('tenant.user.edit');
-    Route::get('/user/delete/{admin}', 'Tenant\AdminController@delete')->name('tenant.user.delete');
-    Route::get('/new/user/', 'Tenant\AdminController@create')->name('tenant.user.create');
+    Route::get('/new-user/create', 'Tenant\AdminController@create')->name('tenant.user.create');
+    Route::get('/deleted/users', 'Tenant\AdminController@deleted')->name('tenant.users.deleted');
     Route::put('/user/{id}', 'Tenant\AdminController@toggleAdmin')->name('tenant.user.admin');
+    Route::delete('/user/{admin}', 'Tenant\AdminController@delete')->name('tenant.user.delete');
     Route::post('/user/{admin}', 'Tenant\AdminController@update')->name('tenant.user.update');
     Route::post('/user', 'Tenant\AdminController@store')->name('tenant.user.store');
     Route::post('/upload/avatar', 'Tenant\AdminController@uploadAvatar')->name('tenant.upload.avatar');

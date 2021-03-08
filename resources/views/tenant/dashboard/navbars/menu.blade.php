@@ -19,6 +19,7 @@
                             <ul class="dropdown-menu">
                                 <li data-menu=""><a class="dropdown-item" href="{{route('tenant.users.list', ['subdomain' => request()->subdomain])}}" data-i18n="Users List" data-toggle="dropdown">{{trans('cruds.user.list')}}</a></li>
                                 <li data-menu=""><a class="dropdown-item" href="{{route('tenant.user.create', ['subdomain' => request()->subdomain])}}" data-i18n="Users List" data-toggle="dropdown">{{trans('cruds.user.create')}}</a></li>
+                                <li data-menu=""><a class="dropdown-item" href="{{route('tenant.users.deleted', ['subdomain' => request()->subdomain])}}" data-i18n="Users List" data-toggle="dropdown">{{trans('cruds.user.deleted')}}</a></li>
 
                             </ul>
                         </li>

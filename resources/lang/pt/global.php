@@ -6,6 +6,7 @@ return [
     'add'                                  => 'Adicionar',
     'allRightsReserved'                    => 'Todos os direitos reservados.',
     'areYouSure'                           => 'Tem a certeza?',
+    'youWillNotRevert'                     => 'Não poderá reverter esta operação.',
     'clickHereToVerify'                    => 'Clique aqui para verificar',
     'create'                               => 'Criar',
     'dashboard'                            => 'Painel',
@@ -269,11 +270,11 @@ return [
     'toast_messages'                       => [
         'success_title'                    => 'ótimo',
         'error_title'                      => 'Oooopss',
-
         'admin_status_success'             => 'Alterou as permissões do utilizador.',
         'admin_avatar_success'             => 'Alterou o avatar do utilizador com sucesso.',
         'admin_status_error'               => 'Algo correu mal! Tente mais tarde.',
         'admin_avatar_error'               => 'Algo correu mal! Tente mais tarde.',
+        'user_deleted_success'             => 'User deleted with success',
     ],
     'modals'                               => [
         'close'                            => 'Fechar',

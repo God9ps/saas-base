@@ -37,6 +37,14 @@ class AdminController extends Controller
         return view('tenant.dashboard.pages.users.index', compact(['admins']));
     }
 
+    public function deleted()
+    {
+        abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $admins = Admin::onlyTrashed()->paginate(10);
+        return view('tenant.dashboard.pages.users.deleted', compact(['admins']));
+    }
+
     public function create()
     {
         $countries = Country::all();
@@ -155,20 +163,18 @@ class AdminController extends Controller
             ])->with('success', trans('cruds.user.fields.updated_success'));
     }
 
-    public function delete($subdomain, Admin $admin)
+    public function delete($subdomain, $admin)
     {
+
         abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try{
-            Admin::where('id', $admin->id)->delete();
+            Admin::where('id', $admin)->delete();
         }catch (\Exception $e){
             abort(Response::HTTP_NOT_IMPLEMENTED, $e->getMessage());
         }
 
-        return redirect()
-            ->route('tenant.users.list', [
-                'subdomain' => request()->subdomain]
-            );
+        return response()->json(["success" => true]);
     }
 
 }
