@@ -92,7 +92,7 @@
                                             <td class="text-truncate">
                                                 <div class="avatar avatar-md mr-1">
                                                     <img class="rounded-circle"
-                                                         src="{{asset('storage/'.$admin->avatar)}}"
+                                                         src="{{!is_null($admin->avatar) ? asset('storage/'.$admin->avatar) : asset('storage/admin/default.png')}}"
                                                          alt="{{$admin->name}}">
                                                 </div>
                                             </td>
