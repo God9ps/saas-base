@@ -36,6 +36,7 @@
 @endsection
 
 @section('content')
+
     <div class="content-body">
         <!-- users list start -->
         <section class="users-list-wrapper">
@@ -129,9 +130,11 @@
                                                         <a class="dropdown-item" href="{{route('tenant.user.edit', ['admin' => $admin->id, 'subdomain' => request()->subdomain])}}">
                                                             <span class="feather icon-edit"></span> {{trans('global.edit')}}
                                                         </a>
+                                                        @if($admins->count() > 1 && $admin->email !== $admin->owner->email)
                                                         <a class="dropdown-item" onclick="deleteUser({{$admin->id}})">
                                                             <span class="feather icon-delete"></span> {{trans('global.delete')}}
                                                         </a>
+                                                        @endif
 <!--                                                        <a class="dropdown-item" href="#">Extras</a>
                                                         <a class="dropdown-item" href="#">Newsletter</a>-->
                                                     </div>
@@ -216,7 +219,7 @@
         function deleteUser(user){
             Swal.fire({
                 title: "{{trans('global.areYouSure')}}",
-                text: "{{trans('global.youWillNotRevert')}}",
+                text: "{{trans('global.youWillCanRevert')}}",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

@@ -51,7 +51,7 @@
                                 {{trans('cruds.userManagement.create_new_user')}}
                             </a>
 
-                            <a class="btn btn-danger mr-1 mb-1 basic-context-menu" type="button" href="{{route('tenant.user.delete.all', ['subdomain' => request()->subdomain])}}">
+                            <a class="btn btn-danger mr-1 mb-1 basic-context-menu" type="button" href="{{route('tenant.users.force.delete', ['subdomain' => request()->subdomain])}}">
                                 {{trans('cruds.userManagement.delete_all')}}
                             </a>
                             <!-- /Basic context menu starts -->
@@ -89,7 +89,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($admins as $admin)
+                                    @forelse($admins as $admin)
                                         <tr>
                                             <td class="text-truncate">
                                                 <div class="avatar avatar-md mr-1">
@@ -129,11 +129,11 @@
                                                         </span>
                                                     <div class="dropdown-menu dropdown-menu-right"
                                                          aria-labelledby="dropdownMenuButton">
-                                                        <a class="dropdown-item" href="{{route('tenant.user.edit', ['admin' => $admin->id, 'subdomain' => request()->subdomain])}}">
-                                                            <span class="feather icon-edit"></span> {{trans('global.edit')}}
+                                                        <a class="dropdown-item" href="{{route('tenant.user.restore', ['admin' => $admin->id, 'subdomain' => request()->subdomain])}}">
+                                                            <span class="feather icon-refresh-ccw"></span> {{trans('global.restore')}}
                                                         </a>
-                                                        <a class="dropdown-item" onclick="deleteUser({{$admin->id}})">
-                                                            <span class="feather icon-delete"></span> {{trans('global.delete')}}
+                                                        <a class="dropdown-item" onclick="forceDeleteUser({{$admin->id}})">
+                                                            <span class="feather icon-scissors"></span> {{trans('global.delete')}}
                                                         </a>
 <!--                                                        <a class="dropdown-item" href="#">Extras</a>
                                                         <a class="dropdown-item" href="#">Newsletter</a>-->
@@ -142,7 +142,13 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td class="text-truncate" colspan="7">
+                                                <h4>{{trans('global.no_results')}}</h4>
+                                            </td>
+                                        </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -216,7 +222,7 @@
             });
         }
 
-        function deleteUser(user){
+        function forceDeleteUser(user){
             Swal.fire({
                 title: "{{trans('global.areYouSure')}}",
                 text: "{{trans('global.youWillNotRevert')}}",
@@ -232,7 +238,7 @@
                 if (result.value) {
                     $.ajax({
                         headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
-                        url: '/dashboard/user/' + user,
+                        url: '/dashboard/user/force-delete/' + user,
                         dataType: 'json',
                         type: 'delete',
                         success: function (response) {

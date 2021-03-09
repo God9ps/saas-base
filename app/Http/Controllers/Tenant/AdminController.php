@@ -165,16 +165,42 @@ class AdminController extends Controller
 
     public function delete($subdomain, $admin)
     {
-
-        abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $count = Admin::all()->count();
+        abort_if(auth()->user()->isadmin() === false || $count === 1, Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try{
-            Admin::where('id', $admin)->delete();
+            $admin = Admin::where('id', $admin)->delete();
         }catch (\Exception $e){
             abort(Response::HTTP_NOT_IMPLEMENTED, $e->getMessage());
         }
 
-        return response()->json(["success" => true]);
+        return response()->json(["success" => true, 'admin' => $admin]);
+    }
+
+    public function delete_restore($subdomain, $admin)
+    {
+        abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        Admin::where('id', $admin)->restore();
+        $admins = Admin::all();
+        return redirect()->route('tenant.users.list', ['admins'=>$admins, 'subdomain'=>request()->subdomain]);
+    }
+
+    public function individual_force_delete($subdomain, $admin)
+    {
+        abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        Admin::where('id', $admin)->forceDelete();
+        $admins = Admin::onlyTrashed();
+        return view('tenant.dashboard.pages.users.deleted', compact(['admins']));
+    }
+
+    public function force_delete()
+    {
+        abort_if(auth()->user()->isadmin() === false, Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $admins = Admin::onlyTrashed()->forceDelete();
+        return view('tenant.dashboard.pages.users.deleted', compact(['admins']));
     }
 
 }

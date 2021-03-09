@@ -7,6 +7,7 @@ return [
     'allRightsReserved'                    => 'All rights reserved.',
     'areYouSure'                           => 'Are you sure?',
     'youWillNotRevert'                     => 'You will not be able to revert this!',
+    'youWillCanRevert'                     => 'You will can revert this!',
     'clickHereToVerify'                    => 'Click here to verify',
     'create'                               => 'Create',
     'dashboard'                            => 'Dashboard',
