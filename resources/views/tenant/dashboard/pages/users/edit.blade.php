@@ -73,11 +73,13 @@
                                     <i class="feather icon-user mr-25"></i><span class="d-none d-sm-block">{{trans('cruds.user.title_singular')}}</span>
                                 </a>
                             </li>
-<!--                            <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center" id="information-tab" data-toggle="tab" href="#information" aria-controls="information" role="tab" aria-selected="false">
-                                    <i class="feather icon-info mr-25"></i><span class="d-none d-sm-block">Information</span>
+                            @if(auth()->id() === $admin->id)
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" id="information-tab" data-toggle="tab" href="#change_password" aria-controls="information" role="tab" aria-selected="false">
+                                    <i class="feather icon-lock mr-25"></i><span class="d-none d-sm-block">{{trans('global.change_password')}}</span>
                                 </a>
-                            </li>-->
+                            </li>
+                            @endif
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
@@ -262,116 +264,48 @@
                                 </form>
                                 <!-- users edit account form ends -->
                             </div>
-<!--                            <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
-                                &lt;!&ndash; users edit Info form start &ndash;&gt;
-                                <form novalidate>
-                                    <div class="row">
-                                        <div class="col-12 col-sm-6">
-                                            <h5 class="mb-1"><i class="feather icon-link mr-25"></i>Social Links</h5>
-                                            <div class="form-group">
-                                                <label>Twitter</label>
-                                                <input class="form-control" type="text" value="https://www.twitter.com/">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Facebook</label>
-                                                <input class="form-control" type="text" value="https://www.facebook.com/">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Google+</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>LinkedIn</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Instagram</label>
-                                                <input class="form-control" type="text" value="https://www.instagram.com/">
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-sm-6 mt-1 mt-sm-0">
-                                            <h5 class="mb-1"><i class="feather icon-user mr-25"></i>Personal Info</h5>
-                                            <div class="form-group">
-                                                <div class="controls position-relative">
-                                                    <label>Birth date</label>
-                                                    <input type="text" class="form-control birthdate-picker" required placeholder="Birth date" data-validation-required-message="This birthdate field is required">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <select class="form-control" id="accountSelect">
-                                                    <option>USA</option>
-                                                    <option>India</option>
-                                                    <option>Canada</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Languages</label>
-                                                <select class="form-control" id="users-language-select2" multiple="multiple">
-                                                    <option value="English" selected>English</option>
-                                                    <option value="Spanish">Spanish</option>
-                                                    <option value="French">French</option>
-                                                    <option value="Russian">Russian</option>
-                                                    <option value="German">German</option>
-                                                    <option value="Arabic" selected>Arabic</option>
-                                                    <option value="Sanskrit">Sanskrit</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="controls">
-                                                    <label>Phone</label>
-                                                    <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="controls">
-                                                    <label>Address</label>
-                                                    <input type="text" class="form-control" placeholder="Address" data-validation-required-message="This Address field is required">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Website</label>
-                                                <input type="text" class="form-control" placeholder="Website address">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Favourite Music</label>
-                                                <select class="form-control" id="users-music-select2" multiple="multiple">
-                                                    <option value="Rock">Rock</option>
-                                                    <option value="Jazz" selected>Jazz</option>
-                                                    <option value="Disco">Disco</option>
-                                                    <option value="Pop">Pop</option>
-                                                    <option value="Techno">Techno</option>
-                                                    <option value="Folk" selected>Folk</option>
-                                                    <option value="Hip hop">Hip hop</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Favourite movies</label>
-                                                <select class="form-control" id="users-movies-select2" multiple="multiple">
-                                                    <option value="The Dark Knight" selected>The Dark Knight
-                                                    </option>
-                                                    <option value="Harry Potter" selected>Harry Potter</option>
-                                                    <option value="Airplane!">Airplane!</option>
-                                                    <option value="Perl Harbour">Perl Harbour</option>
-                                                    <option value="Spider Man">Spider Man</option>
-                                                    <option value="Iron Man" selected>Iron Man</option>
-                                                    <option value="Avatar">Avatar</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                                            <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Save
-                                                changes</button>
-                                            <button type="reset" class="btn btn-light">Cancel</button>
+                            @if(auth()->id() === $admin->id)
+                            <div class="tab-pane" id="change_password" aria-labelledby="information-tab" role="tabpanel">
+
+                                <form method="POST" action="{{route('tenant.change.password', ['subdomain' => request()->subdomain])}}">
+                                    @csrf
+
+                                    @foreach ($errors->all() as $error)
+                                        <p class="text-danger">{{ $error }}</p>
+                                    @endforeach
+
+                                    <div class="form-group row">
+                                        <label for="password" class="col-md-4 col-form-label text-md-right">{{trans('cruds.user.fields.current_password')}}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password" type="password" class="form-control" name="current_password" autocomplete="current-password">
                                         </div>
                                     </div>
+
+                                    <div class="form-group row">
+                                        <label for="new_password" class="col-md-4 col-form-label text-md-right">{{trans('cruds.user.fields.new_password')}}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="new_password" type="password" class="form-control" name="new_password" autocomplete="current-password">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="new_confirm_password" class="col-md-4 col-form-label text-md-right">{{trans('cruds.user.fields.new_password_confirmation')}}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="new_confirm_password" type="password" class="form-control" name="new_confirm_password" autocomplete="current-password">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                                        <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">{{trans('global.save')}}</button>
+                                        <a href="{{route('tenant.dashboard', ['subdomain' => request()->subdomain])}}" class="btn btn-light">{{trans('global.modals.close')}}</a>
+                                    </div>
                                 </form>
-                                &lt;!&ndash; users edit Info form ends &ndash;&gt;
-                            </div>-->
+
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,8 @@ return [
         'title'          => 'Gestão de Utilizador',
         'title_singular' => 'Gestão de Utilizador',
         'create_new_user' => 'Criar Novo Utilizador',
+        'delete_all'    => 'Eliminar Todos Permanentemente',
+
     ],
     'permission'     => [
         'title'          => 'Permissões',
@@ -46,8 +48,11 @@ return [
     ],
     'user'           => [
         'title'          => 'Utilizadores',
+        'active'          => 'Utilizadores Activos',
+
         'list'           => 'Lista de Utilizadores',
         'create'         => 'Novo Utilizador',
+        'deleted'        => 'Utilizadores Eliminados',
         'title_singular' => 'Utilizador',
         'fields'         => [
             'id'                       => 'ID',
@@ -78,6 +83,12 @@ return [
             'email_verified_at_helper' => '',
             'password'                 => 'Password',
             'password_helper'          => '',
+            'current_password'         => 'Password Actual',
+            'current_password_helper'  => '',
+            'new_password'             => 'Nova Password',
+            'new_password_helper'      => '',
+            'new_password_confirmation'        => 'Confirmação da Nova Password',
+            'new_password_confirmation_helper' => '',
             'roles'                    => 'Regras',
             'roles_helper'             => '',
             'choose_avatar'            => 'Escolha a Foto',

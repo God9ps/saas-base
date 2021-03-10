@@ -6,6 +6,8 @@ return [
     'add'                                  => 'Add',
     'allRightsReserved'                    => 'All rights reserved.',
     'areYouSure'                           => 'Are you sure?',
+    'youWillNotRevert'                     => 'You will not be able to revert this!',
+    'youWillCanRevert'                     => 'You will can revert this!',
     'clickHereToVerify'                    => 'Click here to verify',
     'create'                               => 'Create',
     'dashboard'                            => 'Dashboard',
@@ -274,6 +276,7 @@ return [
         'admin_avatar_success'             => 'You had change the user avatar with success',
         'admin_status_error'               => 'Something went wrong',
         'admin_avatar_error'               => 'Something went wrong',
+        'user_deleted_success'             => 'User deleted with success',
     ],
     'modals'                               => [
         'close'                            => 'Close',

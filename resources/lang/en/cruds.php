@@ -5,6 +5,7 @@ return [
         'title'          => 'User management',
         'title_singular' => 'User management',
         'create_new_user' => 'Create New User',
+        'delete_all'    => 'Delete Permanently All',
     ],
     'permission'     => [
         'title'          => 'Permissions',
@@ -46,8 +47,10 @@ return [
     ],
     'user'           => [
         'title'          => 'Users',
+        'active'          => 'Active Users',
         'list'           => 'Users List',
         'create'         => 'Create User',
+        'deleted'         => 'Deleted Users',
         'title_singular' => 'User',
         'fields'         => [
             'id'                       => 'ID',
@@ -78,6 +81,12 @@ return [
             'email_verified_at_helper' => '',
             'password'                 => 'Password',
             'password_helper'          => '',
+            'current_password'         => 'Current Password',
+            'current_password_helper'  => '',
+            'new_password'             => 'New Password',
+            'new_password_helper'      => '',
+            'new_password_confirmation'        => 'New Password Confirmation',
+            'new_password_confirmation_helper' => '',
             'roles'                    => 'Roles',
             'roles_helper'             => '',
             'choose_avatar'            => 'Choose Avatar',

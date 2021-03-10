@@ -5,6 +5,7 @@
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/vendors.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/extensions/toastr.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/extensions/sweetalert2.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/forms/icheck/icheck.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('admin-panel/app-assets/vendors/css/forms/icheck/custom.css')}}">
@@ -35,6 +36,7 @@
 @endsection
 
 @section('content')
+
     <div class="content-body">
         <!-- users list start -->
         <section class="users-list-wrapper">
@@ -49,6 +51,7 @@
                             <a class="btn btn-primary mr-1 mb-1 basic-context-menu" type="button" href="{{route('tenant.user.create', ['subdomain' => request()->subdomain])}}">
                                 {{trans('cruds.userManagement.create_new_user')}}
                             </a>
+
                             <!-- /Basic context menu starts -->
 
                         </div>
@@ -61,7 +64,7 @@
                 <div class="col-12">
                     <div class="card active-users">
                         <div class="card-header border-0">
-                            <h4 class="card-title">Active Users</h4>
+                            <h4 class="card-title">{{trans('cruds.user.active')}}</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -89,7 +92,7 @@
                                             <td class="text-truncate">
                                                 <div class="avatar avatar-md mr-1">
                                                     <img class="rounded-circle"
-                                                         src="{{asset('storage/'.$admin->avatar)}}"
+                                                         src="{{!is_null($admin->avatar) ? asset('storage/'.$admin->avatar) : asset('storage/admin/default.png')}}"
                                                          alt="{{$admin->name}}">
                                                 </div>
                                             </td>
@@ -125,8 +128,13 @@
                                                     <div class="dropdown-menu dropdown-menu-right"
                                                          aria-labelledby="dropdownMenuButton">
                                                         <a class="dropdown-item" href="{{route('tenant.user.edit', ['admin' => $admin->id, 'subdomain' => request()->subdomain])}}">
-                                                            <span class="feather icon-edit"></span> Edit
+                                                            <span class="feather icon-edit"></span> {{trans('global.edit')}}
                                                         </a>
+                                                        @if($admins->count() > 1 && $admin->email !== $admin->owner->email)
+                                                        <a class="dropdown-item" onclick="deleteUser({{$admin->id}})">
+                                                            <span class="feather icon-delete"></span> {{trans('global.delete')}}
+                                                        </a>
+                                                        @endif
 <!--                                                        <a class="dropdown-item" href="#">Extras</a>
                                                         <a class="dropdown-item" href="#">Newsletter</a>-->
                                                     </div>
@@ -160,6 +168,7 @@
     <script src="{{asset('admin-panel/app-assets/vendors/js/ui/jquery.sticky.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/charts/jquery.sparkline.min.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
+    <script src="{{asset('admin-panel/app-assets/vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
 
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/icheck/icheck.min.js')}}"></script>
     <script src="{{asset('admin-panel/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js')}}"></script>
@@ -205,8 +214,51 @@
                     console.log(error);
                 }
             });
+        }
 
+        function deleteUser(user){
+            Swal.fire({
+                title: "{{trans('global.areYouSure')}}",
+                text: "{{trans('global.youWillCanRevert')}}",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "{{strtoupper(trans('global.yes'))}}",
+                confirmButtonClass: "btn btn-warning",
+                cancelButtonClass: "btn btn-danger ml-1",
+                buttonsStyling: false
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                        url: '/dashboard/user/' + user,
+                        dataType: 'json',
+                        type: 'delete',
+                        success: function (response) {
+                            console.log(response);
+                            if(response.success){
+                                Swal.fire(
+                                    '{{trans('global.toast_messages.success_title')}}',
+                                    '{{trans('global.toast_messages.user_deleted_success')}}',
+                                    'success'
+                                )
+                                window.location.reload();
+                            }else{
+                                Swal.fire(
+                                    '{{trans('global.toast_messages.error_title')}}',
+                                    '{{trans('global.toast_messages.admin_status_error')}}',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
 
+                    })
+                }
+            });
 
         }
     </script>
